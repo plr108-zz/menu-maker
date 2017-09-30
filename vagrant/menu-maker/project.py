@@ -40,7 +40,7 @@ def newMenuItem(restaurant_id):
         session.commit()
         return redirect(
             url_for('restaurantMenu', restaurant_id=restaurant_id))
-    return render_template('newMenuItem.html',restaurant_id=restaurant_id)
+    return render_template('newMenuItem.html', restaurant_id=restaurant_id)
 
 
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/edit',
