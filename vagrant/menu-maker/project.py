@@ -42,7 +42,8 @@ def editMenuItem(restaurant_id, menu_id):
         session.add(editedItem)
         session.commit()
         flash('Menu item edited!')
-        return redirect(url_for('restaurantMenu', restaurant_id=restaurant_id))
+        return redirect(
+            url_for('restaurantMenu', restaurant_id=restaurant_id))
     else:
         return render_template('editmenuitem.html',
                                restaurant_id=restaurant_id,
