@@ -18,6 +18,12 @@ def showRestaurants():
     return response
 
 
+@app.route('/restaurants/new/')
+def newRestaurant():
+    response = 'This page will be for making a new restaurant'
+    return response
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=8000)
