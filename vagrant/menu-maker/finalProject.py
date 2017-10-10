@@ -30,7 +30,7 @@ def editRestaurant(restaurant_id):
     return response
 
 
-@app.route('/restaurant/<int:restaurant_id>/delete')
+@app.route('/restaurant/<int:restaurant_id>/delete/')
 def deleteRestaurant(restaurant_id):
     response = 'This page will be for deleting restaurant %s' % restaurant_id
     return response
