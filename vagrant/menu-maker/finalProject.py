@@ -24,7 +24,7 @@ def newRestaurant():
     return response
 
 
-@app.route('/restaurant/<int:restaurant_id>/edit')
+@app.route('/restaurant/<int:restaurant_id>/edit/')
 def editRestaurant(restaurant_id):
     response = 'This page will be for editing restaurant %s' % restaurant_id
     return response
