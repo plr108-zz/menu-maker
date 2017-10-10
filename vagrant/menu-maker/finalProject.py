@@ -24,6 +24,12 @@ def newRestaurant():
     return response
 
 
+@app.route('/restaurant/<int:restaurant_id>/edit')
+def editRestaurant(restaurant_id):
+    response = 'This page will be for editing restaurant %s' % restaurant_id
+    return response
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=8000)
