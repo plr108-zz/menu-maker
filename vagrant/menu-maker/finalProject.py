@@ -43,6 +43,13 @@ def showMenu(restaurant_id):
     return response
 
 
+@app.route('/restaurant/<int:restaurant_id>/menu/new/')
+def newMenuItem(restaurant_id):
+    response = 'This page is for making a new menu item for restaurant '
+    response += '%s' % restaurant_id
+    return response
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=8000)
