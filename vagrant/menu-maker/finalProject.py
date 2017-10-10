@@ -57,6 +57,13 @@ def editMenuItem(restaurant_id, menu_id):
     return response
 
 
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete/')
+def deleteMenuItem(restaurant_id, menu_id):
+    response = 'This page is for deleting menu item %s ' % menu_id
+    response += ' for restaurant %s' % restaurant_id
+    return response
+
+
 if __name__ == '__main__':
     app.debug = True
     app.run(host='0.0.0.0', port=8000)
