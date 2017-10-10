@@ -31,7 +31,7 @@ def showRestaurants():
     return render_template('restaurants.html', restaurants = restaurants)
 
 
-@app.route('/restaurants/new/')
+@app.route('/restaurant/new/')
 def newRestaurant():
     response = 'This page will be for making a new restaurant'
     return response
