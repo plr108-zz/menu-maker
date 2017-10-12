@@ -28,7 +28,7 @@ session = DBSession()
 @app.route('/')
 @app.route('/restaurants/')
 def showRestaurants():
-    return render_template('restaurants.html', restaurants = restaurants)
+    return render_template('restaurants.html', restaurants=restaurants)
 
 
 @app.route('/restaurant/new/')
@@ -38,8 +38,16 @@ def newRestaurant():
 
 @app.route('/restaurant/<int:restaurant_id>/edit/')
 def editRestaurant(restaurant_id):
-    response = 'This page will be for editing restaurant %s' % restaurant_id
-    return response
+    restaurantToEdit = None
+    for restaurant in restaurants:
+        if int(restaurant['id']) == restaurant_id:
+            restaurantToEdit = restaurant
+    response = 'Restaurant not found'
+    if restaurantToEdit is None:
+        return response
+    else:
+        return render_template(
+            'editrestaurant.html', restaurant=restaurantToEdit)
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete/')
