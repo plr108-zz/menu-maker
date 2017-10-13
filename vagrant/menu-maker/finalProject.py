@@ -52,8 +52,16 @@ def editRestaurant(restaurant_id):
 
 @app.route('/restaurant/<int:restaurant_id>/delete/')
 def deleteRestaurant(restaurant_id):
-    response = 'This page will be for deleting restaurant %s' % restaurant_id
-    return response
+    restaurantToDelete = None
+    for restaurant in restaurants:
+        if int(restaurant['id']) == restaurant_id:
+            restaurantToDelete = restaurant
+    response = 'Restaurant not found'
+    if restaurantToDelete is None:
+        return response
+    else:
+        return render_template(
+            'deleterestaurant.html', restaurant=restaurantToDelete)
 
 
 @app.route('/restaurant/<int:restaurant_id>/')
