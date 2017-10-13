@@ -38,10 +38,7 @@ def newRestaurant():
 
 @app.route('/restaurant/<int:restaurant_id>/edit/')
 def editRestaurant(restaurant_id):
-    restaurantToEdit = None
-    for restaurant in restaurants:
-        if int(restaurant['id']) == restaurant_id:
-            restaurantToEdit = restaurant
+    restaurantToEdit = getRestaurant(restaurant_id)
     response = 'Restaurant not found'
     if restaurantToEdit is None:
         return response
@@ -52,10 +49,7 @@ def editRestaurant(restaurant_id):
 
 @app.route('/restaurant/<int:restaurant_id>/delete/')
 def deleteRestaurant(restaurant_id):
-    restaurantToDelete = None
-    for restaurant in restaurants:
-        if int(restaurant['id']) == restaurant_id:
-            restaurantToDelete = restaurant
+    restaurantToDelete = getRestaurant(restaurant_id)
     response = 'Restaurant not found'
     if restaurantToDelete is None:
         return response
@@ -90,6 +84,14 @@ def deleteMenuItem(restaurant_id, menu_id):
     response = 'This page is for deleting menu item %s ' % menu_id
     response += ' for restaurant %s' % restaurant_id
     return response
+
+
+def getRestaurant(restaurant_id):
+    targetRestaurant = None
+    for restaurant in restaurants:
+        if int(restaurant['id']) == restaurant_id:
+            targetRestaurant = restaurant
+    return targetRestaurant
 
 
 if __name__ == '__main__':
