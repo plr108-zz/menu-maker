@@ -61,8 +61,13 @@ def deleteRestaurant(restaurant_id):
 @app.route('/restaurant/<int:restaurant_id>/')
 @app.route('/restaurant/<int:restaurant_id>/menu/')
 def showMenu(restaurant_id):
-    response = 'This page is the menu for restaurant %s' % restaurant_id
-    return response
+    targetRestaurant = getRestaurant(restaurant_id)
+    response = 'Restaurant not found'
+    if targetRestaurant is None:
+        return response
+    else:
+        return render_template(
+            'menu.html', restaurant=targetRestaurant, items=items)
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new/')
