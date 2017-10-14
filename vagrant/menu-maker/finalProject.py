@@ -79,9 +79,20 @@ def newMenuItem(restaurant_id):
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit/')
 def editMenuItem(restaurant_id, menu_id):
-    response = 'This page is for editing menu item %s ' % menu_id
-    response += ' for restaurant %s' % restaurant_id
-    return response
+    target_restaurant = getRestaurant(restaurant_id)
+    no_restaurant = 'Restaurant not found'
+    if target_restaurant is None:
+        return no_restaurant
+    else:
+        target_item = get_menu_item(menu_id)
+        no_menu_item = 'Menu Item not found'
+        if target_item is None:
+            return no_menu_item
+        else:
+            return render_template('editmenuitem.html',
+                                   restaurant_id=restaurant_id,
+                                   menu_id=menu_id,
+                                   item=target_item)
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete/')
@@ -89,6 +100,14 @@ def deleteMenuItem(restaurant_id, menu_id):
     response = 'This page is for deleting menu item %s ' % menu_id
     response += ' for restaurant %s' % restaurant_id
     return response
+
+
+def get_menu_item(menu_id):
+    target_item = None
+    for item in items:
+        if int(item['id']) == menu_id:
+            target_item = item
+    return target_item
 
 
 def getRestaurant(restaurant_id):
