@@ -72,9 +72,13 @@ def showMenu(restaurant_id):
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new/')
 def newMenuItem(restaurant_id):
-    response = 'This page is for making a new menu item for restaurant '
-    response += '%s' % restaurant_id
-    return response
+    targetRestaurant = getRestaurant(restaurant_id)
+    response = 'Restaurant not found'
+    if targetRestaurant is None:
+        return response
+    else:
+        return render_template(
+            'newmenuitem.html', restaurant_id=restaurant_id)
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit/')
