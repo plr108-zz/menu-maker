@@ -60,8 +60,14 @@ def deleteRestaurant(restaurant_id):
         print sys.exc_info()[0]
         return response
     else:
-        return render_template(
-            'deleterestaurant.html', restaurant=restaurantToDelete)
+        if request.method == 'POST':
+            session.delete(restaurantToDelete)
+            session.commit()
+            return redirect(
+                url_for('showRestaurants', restaurant_id=restaurant_id))
+        else:
+            return render_template(
+                'deleterestaurant.html', restaurant=restaurantToDelete)
 
 
 @app.route('/restaurant/<int:restaurant_id>/')
