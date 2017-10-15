@@ -68,7 +68,8 @@
 			</br>
 			{% endif %} {% endfor %} {% else %}
 			<p> You currently have no menu items.</p>
-			<a href='{{url_for("newMenuItem",restaurant_id=restaurant.id)}}'>Create New Item</a> {% endif %}
+			<p><a href='{{url_for("newMenuItem",restaurant_id=restaurant.id)}}'>Create New Item</a></p>{% endif %}
+			<p><a href='{{url_for("showRestaurants")}}'>Return to Restaurant List</a></p>
 		</div>
 	</body>
 </html>
