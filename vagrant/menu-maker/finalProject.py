@@ -31,7 +31,7 @@ def newRestaurant():
         return render_template('newRestaurant.html')
 
 
-@app.route('/restaurant/<int:restaurant_id>/edit/')
+@app.route('/restaurant/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
 def editRestaurant(restaurant_id):
     try:
         restaurantToEdit = session.query(
@@ -41,8 +41,13 @@ def editRestaurant(restaurant_id):
         print sys.exc_info()[0]
         return response
     else:
-        return render_template(
-            'editrestaurant.html', restaurant=restaurantToEdit)
+        if request.method == 'POST':
+            if request.form['name']:
+                restaurantToEdit.name = request.form['name']
+                return redirect(url_for('showRestaurants'))
+        else:
+            return render_template(
+                'editrestaurant.html', restaurant=restaurantToEdit)
 
 
 @app.route('/restaurant/<int:restaurant_id>/delete/')
