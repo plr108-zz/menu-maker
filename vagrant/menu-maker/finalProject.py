@@ -1,3 +1,4 @@
+import sys
 from flask import Flask
 from flask import render_template, request, redirect, url_for, flash, jsonify
 from sqlalchemy import create_engine
@@ -32,9 +33,12 @@ def newRestaurant():
 
 @app.route('/restaurant/<int:restaurant_id>/edit/')
 def editRestaurant(restaurant_id):
-    restaurantToEdit = getRestaurant(restaurant_id)
-    response = 'Restaurant not found'
-    if restaurantToEdit is None:
+    try:
+        restaurantToEdit = session.query(
+            Restaurant).filter_by(id=restaurant_id).one()
+    except:
+        response = 'Restaurant not found'
+        print sys.exc_info()[0]
         return response
     else:
         return render_template(
