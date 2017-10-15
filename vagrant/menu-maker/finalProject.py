@@ -73,13 +73,18 @@ def deleteRestaurant(restaurant_id):
 @app.route('/restaurant/<int:restaurant_id>/')
 @app.route('/restaurant/<int:restaurant_id>/menu/')
 def showMenu(restaurant_id):
-    targetRestaurant = getRestaurant(restaurant_id)
-    response = 'Restaurant not found'
-    if targetRestaurant is None:
+    try:
+        restaurant = session.query(
+            Restaurant).filter_by(id=restaurant_id).one()
+        items = session.query(MenuItem).filter_by(
+            restaurant_id=restaurant_id).all()
+    except:
+        response = 'Restaurant not found'
+        print sys.exc_info()[0]
         return response
     else:
         return render_template(
-            'menu.html', restaurant=targetRestaurant, items=items)
+            'menu.html', restaurant=restaurant, items=items)
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/new/')
