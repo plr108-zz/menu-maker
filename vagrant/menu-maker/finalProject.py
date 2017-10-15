@@ -50,11 +50,14 @@ def editRestaurant(restaurant_id):
                 'editrestaurant.html', restaurant=restaurantToEdit)
 
 
-@app.route('/restaurant/<int:restaurant_id>/delete/')
+@app.route('/restaurant/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
 def deleteRestaurant(restaurant_id):
-    restaurantToDelete = getRestaurant(restaurant_id)
-    response = 'Restaurant not found'
-    if restaurantToDelete is None:
+    try:
+        restaurantToDelete = session.query(
+            Restaurant).filter_by(id=restaurant_id).one()
+    except:
+        response = 'Restaurant not found'
+        print sys.exc_info()[0]
         return response
     else:
         return render_template(
