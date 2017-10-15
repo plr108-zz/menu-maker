@@ -104,22 +104,27 @@ def newMenuItem(restaurant_id):
             'newmenuitem.html', restaurant_id=restaurant_id)
 
 
-@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit/')
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/edit/',
+           methods=['GET', 'POST'])
 def editMenuItem(restaurant_id, menu_id):
-    target_restaurant = getRestaurant(restaurant_id)
-    no_restaurant = 'Restaurant not found'
-    if target_restaurant is None:
-        return no_restaurant
+    editedItem = session.query(MenuItem).filter_by(id=menu_id).one()
+    if request.method == 'POST':
+        if request.form['name']:
+            editedItem.name = request.form['name']
+        if request.form['description']:
+            editedItem.description = request.form['name']
+        if request.form['price']:
+            editedItem.price = request.form['price']
+        if request.form['course']:
+            editedItem.course = request.form['course']
+        session.add(editedItem)
+        session.commit()
+        return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
-        target_item = get_menu_item(menu_id)
-        no_menu_item = 'Menu Item not found'
-        if target_item is None:
-            return no_menu_item
-        else:
-            return render_template('editmenuitem.html',
-                                   restaurant_id=restaurant_id,
-                                   menu_id=menu_id,
-                                   item=target_item)
+        return render_template('editmenuitem.html',
+                               restaurant_id=restaurant_id,
+                               menu_id=menu_id,
+                               item=editedItem)
 
 
 @app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/delete/')
