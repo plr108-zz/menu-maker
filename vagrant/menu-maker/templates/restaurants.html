@@ -5,6 +5,7 @@
 
   <body>
     <h1>Restaurants</h1>
+    <p><a href='{{url_for("newRestaurant")}}'>Create New Restaurant</a></p>
     {% for restaurant in restaurants %}
     <p>{{restaurant.name}}</p>
     <p><a href='#'>Edit Restaurant</a></p>
