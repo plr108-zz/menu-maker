@@ -156,6 +156,12 @@ def deleteMenuItem(restaurant_id, menu_id):
                                item=itemToDelete)
 
 
+@app.route('/restaurant/<int:restaurant_id>/menu/<int:menu_id>/JSON')
+def menuItemJSON(restaurant_id, menu_id):
+    item = session.query(MenuItem).filter_by(id=menu_id).one()
+    return jsonify(Menu_Item=item.serialize)
+
+
 def get_menu_item(menu_id):
     target_item = None
     for item in items:
