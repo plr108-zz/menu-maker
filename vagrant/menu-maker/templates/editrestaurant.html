@@ -8,10 +8,11 @@
     <div class='pane'>
       <h1>Edit Restaurant</h1>
       <form action='{{url_for("editRestaurant",restaurant_id=restaurant.id)}}' method='post'>
-        Name: <input type='text' size='30' name='name' placeholder='{{restaurant.name}}'>
+        <p>Name:</p>
+        <input type='text' size='30' name='name' placeholder='{{restaurant.name}}'>
         <input type='submit' value='Edit'>
-        <a href='{{url_for("showRestaurants")}}'>Cancel</a>
       </form>
+      <p><a href='{{url_for("showRestaurants")}}'>Cancel</a></p>
     </div>
   </body>
 </html>
