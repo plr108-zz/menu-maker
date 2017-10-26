@@ -30,9 +30,11 @@ def restaurantsJSON():
 @app.route('/restaurant/new/', methods=['GET', 'POST'])
 def newRestaurant():
     if request.method == 'POST':
-        newRestaurant = Restaurant(name=request.form['name'])
+        name = request.form['name']
+        newRestaurant = Restaurant(name=name)
         session.add(newRestaurant)
         session.commit()
+        flash(name + ' added')
         return redirect(url_for('showRestaurants'))
     else:
         return render_template('newRestaurant.html')
@@ -180,5 +182,6 @@ def getRestaurant(restaurant_id):
 
 
 if __name__ == '__main__':
+    app.secret_key = '1234'
     app.debug = True
     app.run(host='0.0.0.0', port=8000)
