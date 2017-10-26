@@ -52,8 +52,10 @@ def editRestaurant(restaurant_id):
     else:
         if request.method == 'POST':
             if request.form['name']:
-                restaurantToEdit.name = request.form['name']
+                name = request.form['name']
+                restaurantToEdit.name = name
                 session.commit()
+                flash('Restaurant name changed to ' + name)
                 return redirect(url_for('showRestaurants'))
         else:
             return render_template(
