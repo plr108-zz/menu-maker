@@ -112,13 +112,15 @@ def restaurantMenuJSON(restaurant_id):
            methods=['GET', 'POST'])
 def newMenuItem(restaurant_id):
     if request.method == 'POST':
-        newItem = MenuItem(name=request.form['name'],
+        itemName = request.form['name']
+        newItem = MenuItem(name=itemName,
                            description=request.form['description'],
                            price=request.form['price'],
                            course=request.form['course'],
                            restaurant_id=restaurant_id)
         session.add(newItem)
         session.commit()
+        flash(itemName + ' added to menu')
         return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
         return render_template(
