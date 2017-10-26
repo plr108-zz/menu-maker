@@ -75,6 +75,7 @@ def deleteRestaurant(restaurant_id):
         if request.method == 'POST':
             session.delete(restaurantToDelete)
             session.commit()
+            flash('Restaurant deleted')
             return redirect(
                 url_for('showRestaurants', restaurant_id=restaurant_id))
         else:
