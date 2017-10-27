@@ -142,6 +142,7 @@ def editMenuItem(restaurant_id, menu_id):
             editedItem.course = request.form['course']
         session.add(editedItem)
         session.commit()
+        flash('Menu item successfully edited')
         return redirect(url_for('showMenu', restaurant_id=restaurant_id))
     else:
         return render_template('editmenuitem.html',
